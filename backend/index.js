@@ -8,11 +8,13 @@ const app = express();
 const routes = require('./routes');
 
 app.use(express.json());
-app.use(cookieParser());
+//app.use(cookieParser());
 
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
 
+app.use('/api/item', routes.itemRoute);
+app.use('/api/user', routes.userRoute);
 
 app.get('/', (req, res) => {
     res.send({msg:"API ROOT"});
