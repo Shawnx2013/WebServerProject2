@@ -16,14 +16,14 @@ app.use(cors());
 
 app.use(logger);
 
+app.get('/', (req, res) => {
+    res.status(200).send({msg:"API ROOT"});
+});
+
 app.use('/api/item', routes.itemRoute);
 //app.use('/api/user', routes.userRoute);
 
 app.use(errorLogger);
-
-app.get('/', (req, res) => {
-    res.status(200).send({msg:"API ROOT"});
-})
 
 app.listen(process.env.SERVER_PORT, ()=>{
     console.log(`Server started on port ${process.env.SERVER_HOST}.`);

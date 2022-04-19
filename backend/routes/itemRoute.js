@@ -32,7 +32,7 @@ router.get('/:id', async (req, res, next) => {
             })
         }
     } catch (e) {
-        console.log(e);
+        //console.log(e);
         res.status(500).json({
             message: "Error occured while retrieving item " + req.params.id
         })
