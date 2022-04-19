@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.use('/api/item', routes.itemRoute);
 //app.use('/api/user', routes.userRoute);
 
-app.use(errorLogger);
+// app.use(errorLogger);
 
 app.listen(process.env.SERVER_PORT, ()=>{
     console.log(`Server started on port ${process.env.SERVER_HOST}.`);
