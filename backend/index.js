@@ -7,7 +7,7 @@ const app = express();
 
 const routes = require('./routes');
 const { logger, errorLogger } = require('./util/logger');
-const checkJwt = require('./util/authenticate');
+const jwtCheck = require('./util/authenticate');
 
 app.use(express.json());
 //app.use(cookieParser());
@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use(logger);
 
-app.use(checkJwt);
+app.use(jwtCheck);
 
 app.get('/', (req, res) => {
     res.status(200).send({msg:"API ROOT"});

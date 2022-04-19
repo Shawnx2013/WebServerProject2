@@ -14,6 +14,8 @@ ReactDOM.render(
     domain="dev-8bqfizw3.us.auth0.com"
     clientId="l9SL0ENCIT3VWx5OilNIGIn6GCwhLydU"
     redirectUri={"http://localhost:3000/inventory"}
+    audience="https://dev-8bqfizw3.us.auth0.com/api/v2/"
+    scope="read:current_user update:current_user_metadata"
   >
     <BrowserRouter>
       <Routes>
