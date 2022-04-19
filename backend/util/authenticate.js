@@ -1,22 +1,16 @@
-const jwt = require('jsonwebtoken');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1];
+const jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: 'https://dev-8bqfizw3.us.auth0.com/.well-known/jwks.json'
+  }),
+  audience: 'https://dev-8bqfizw3.us.auth0.com/api/v2/',
+  //issuer: 'https://dev-8bqfizw3.us.auth0.com/',
+  algorithms: ['RS256']
+});
 
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        
-        if (err) {
-            console.log(err);
-            return res.status(403).send();
-        }
-
-        req.user = user;
-
-        next();
-    })
-}
-
-module.exports = authenticateToken;
+module.exports = jwtCheck;

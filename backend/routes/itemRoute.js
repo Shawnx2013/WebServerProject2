@@ -4,7 +4,7 @@ const authenticateToken = require('../util/authenticate');
 
 const { itemService } = require('../services');
 
-router.get('/', authenticateToken, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try{
         let result = await itemService.findAll();
         if(result && result.length > 0){
@@ -20,7 +20,7 @@ router.get('/', authenticateToken, async (req, res, next) => {
     }
 })
 
-router.get('/:id', authenticateToken, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try{
         let id = req.params.id;
         let result = await itemService.findById(id);
@@ -32,14 +32,14 @@ router.get('/:id', authenticateToken, async (req, res, next) => {
             })
         }
     } catch (e) {
-        console.log(e);
+        //console.log(e);
         res.status(500).json({
             message: "Error occured while retrieving item " + req.params.id
         })
     }
 })
 
-router.post('/', authenticateToken, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
     try {
         let newItem = req.body;
         let result = await itemService.create(newItem);
@@ -54,7 +54,7 @@ router.post('/', authenticateToken, async (req, res, next) => {
     }
 })
 
-router.put('/', authenticateToken, async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     try {
         let newItem = req.body;
         let result = await itemService.update(newItem);
@@ -75,7 +75,7 @@ router.put('/', authenticateToken, async (req, res, next) => {
     }
 })
 
-router.delete('/:id', authenticateToken, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
     try {
         let id = req.params.id;
         let result = await itemService.delete(id);

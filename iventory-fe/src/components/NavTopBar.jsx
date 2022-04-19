@@ -1,5 +1,5 @@
 import Menu from "@material-ui/icons/Menu";
-
+import LogoutButton from './LogoutButton';
 function NavTopBar({ name }) {
   return (
     <div className="w-full h-12 bg-black text-white">
@@ -9,7 +9,9 @@ function NavTopBar({ name }) {
         </span>
 
         <span className="ml-4">{name}</span>
+       
       </div>
+      <LogoutButton/>
     </div>
   );
 }
