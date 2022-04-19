@@ -29,10 +29,19 @@ const expressWinston = require('express-winston');
 
 const { combine, timestamp, json } = winston.format;
 
+const myCustomLevels = {
+    levels: {
+      info: 2,
+    },
+    colors: {
+      info: 'yellow',
+    }
+  };
+
 module.exports.logger = expressWinston.logger({
     transports: [
         new winston.transports.File({filename: 'error.log', level: 'error'}),
-        new winston.transports.File({filename: 'combined.log', level: 'info'})
+        new winston.transports.File({filename: 'combined.log', levels: myCustomLevels.levels})
     ],
     format: combine(
         timestamp({
