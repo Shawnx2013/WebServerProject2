@@ -1,0 +1,7 @@
+{"level":"info","message":"GET / 304 2ms","meta":{},"timestamp":"2022-04-18 10:06:31.092 PM"}
+{"level":"info","message":"GET / 304 0ms","meta":{},"timestamp":"2022-04-18 10:06:55.717 PM"}
+{"level":"info","message":"GET / 304 0ms","meta":{},"timestamp":"2022-04-18 10:06:56.300 PM"}
+{"level":"info","message":"GET / 304 3ms","meta":{},"timestamp":"2022-04-18 10:07:14.119 PM"}
+{"level":"info","message":"GET / 304 0ms","meta":{},"timestamp":"2022-04-18 10:07:17.472 PM"}
+{"level":"info","message":"GET /api/item 401 0ms","meta":{},"timestamp":"2022-04-18 10:08:33.619 PM"}
+{"level":"info","message":"GET /api/item 200 157ms","meta":{},"timestamp":"2022-04-18 10:09:22.223 PM"}

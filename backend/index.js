@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 
 const routes = require('./routes');
+const { logger, errorLogger } = require('./util/logger');
 
 app.use(express.json());
 //app.use(cookieParser());
@@ -13,11 +14,15 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
 
+app.use(logger);
+
 app.use('/api/item', routes.itemRoute);
-app.use('/api/user', routes.userRoute);
+//app.use('/api/user', routes.userRoute);
+
+app.use(errorLogger);
 
 app.get('/', (req, res) => {
-    res.send({msg:"API ROOT"});
+    res.status(200).send({msg:"API ROOT"});
 })
 
 app.listen(process.env.SERVER_PORT, ()=>{

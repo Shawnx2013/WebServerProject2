@@ -31,6 +31,20 @@ CREATE TABLE IF NOT EXISTS `inventory-db`.`item` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(35) NOT NULL,
   `description` VARCHAR(150) NOT NULL,
+  `location` INT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`location`) REFERENCES location(`id`)
+)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `inventory-db`.`location`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CageDB`.`location` ;
+
+CREATE TABLE IF NOT EXISTS `CageDB`.`location` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `location` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`)
 )
 ENGINE = InnoDB;

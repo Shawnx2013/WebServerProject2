@@ -4,7 +4,7 @@ const { userService } = require('../services');
 const authenticateToken = require('../util/authenticate');
 const jwt = require('jsonwebtoken');
 
-router.get('/:id', authenticateToken, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try{
         let id = req.params.id;
         let result = await userService.findById(id);
@@ -24,7 +24,7 @@ router.get('/:id', authenticateToken, async (req, res, next) => {
     }
 })
 
-router.get('/', authenticateToken, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try{
         let result = await userService.findAll();
 
@@ -43,7 +43,7 @@ router.get('/', authenticateToken, async (req, res, next) => {
     }
 })
 
-router.post('/', authenticateToken, async (req, res, next) =>{
+router.post('/', async (req, res, next) =>{
     try{
         let newUser = req.body;
         let result = await userService.create(newUser);
