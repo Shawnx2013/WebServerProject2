@@ -1,22 +1,32 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1];
+// function authenticateToken(req, res, next) {
+//     const authHeader = req.headers['authorization']
+//     const token = authHeader && authHeader.split(' ')[1];
 
-    if (token == null) return res.sendStatus(401);
+//     if (token == null) return res.sendStatus(401);
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
+//     jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
         
-        if (err) {
-            console.log(err);
-            return res.status(403).send();
-        }
+//         if (err) {
+//             console.log(err);
+//             return res.status(403).send();
+//         }
 
-        req.user = user;
+//         req.user = user;
 
-        next();
-    })
-}
+//         next();
+//     })
+// }
 
-module.exports = authenticateToken;
+const express = require('express');
+const { auth } = require('express-oauth2-jwt-bearer');
+
+// Authorization middleware. When used, the Access Token must
+// exist and be verified against the Auth0 JSON Web Key Set.
+const checkJwt = auth({
+  audience: 'undefined',
+  issuerBaseURL: `http://localhost:3000`,
+});
+
+module.exports = checkJwt;
