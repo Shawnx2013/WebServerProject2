@@ -12,8 +12,8 @@ import ItemPage from "./pages/ItemPage";
 ReactDOM.render(
   <Auth0Provider
     domain="dev-8bqfizw3.us.auth0.com"
-    clientId="QUEOVVCWEXruknPyX4rVWJMLd3FTQAxF"
-    redirectUri={window.location.origin}
+    clientId="l9SL0ENCIT3VWx5OilNIGIn6GCwhLydU"
+    redirectUri={"http://localhost:3000/inventory"}
   >
     <BrowserRouter>
       <Routes>
