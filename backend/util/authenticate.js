@@ -25,8 +25,8 @@ const { auth } = require('express-oauth2-jwt-bearer');
 // Authorization middleware. When used, the Access Token must
 // exist and be verified against the Auth0 JSON Web Key Set.
 const checkJwt = auth({
-  audience: 'undefined',
-  issuerBaseURL: `http://localhost:3000`,
+    audience: 'https://localhost:8080/api',
+    issuerBaseURL: `https://dev-8bqfizw3.us.auth0.com/`,
 });
 
 module.exports = checkJwt;
