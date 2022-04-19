@@ -32,7 +32,7 @@ const { combine, timestamp, json } = winston.format;
 module.exports.logger = expressWinston.logger({
     transports: [
         new winston.transports.File({filename: 'error.log', level: 'error'}),
-        new winston.transports.File({filename: 'combined.log', levle: 'info'})
+        new winston.transports.File({filename: 'combined.log', level: 'info'})
     ],
     format: combine(
         timestamp({
@@ -51,7 +51,7 @@ module.exports.logger = expressWinston.logger({
 
 module.exports.errorLogger = expressWinston.errorLogger({
     transports: [
-        new winston.transports.File({filename: 'error.log'}),
+        new winston.transports.File({filename: 'error.log', level: 'error'}),
         new winston.transports.Console()
     ],
     format: combine(
