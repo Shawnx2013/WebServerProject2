@@ -10,14 +10,13 @@ CREATE SCHEMA IF NOT EXISTS `inventory-db` DEFAULT CHARACTER SET utf8 ;
 USE `inventory-db` ;
 
 -- -----------------------------------------------------
--- Table `inventory-db`.`user`
+-- Table `inventory-db`.`location`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `inventory-db`.`user` ;
+DROP TABLE IF EXISTS `inventory-db`.`location` ;
 
-CREATE TABLE IF NOT EXISTS `inventory-db`.`user` (
+CREATE TABLE IF NOT EXISTS `inventory-db`.`location` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(35) NOT NULL,
-  `password` VARCHAR(25) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`)
 )
 ENGINE = InnoDB;
@@ -37,14 +36,3 @@ CREATE TABLE IF NOT EXISTS `inventory-db`.`item` (
 )
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `inventory-db`.`location`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `CageDB`.`location` ;
-
-CREATE TABLE IF NOT EXISTS `CageDB`.`location` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `location` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`)
-)
-ENGINE = InnoDB;

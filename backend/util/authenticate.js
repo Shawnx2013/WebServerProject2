@@ -9,7 +9,6 @@ const jwtCheck = jwt({
         jwksUri: 'https://dev-8bqfizw3.us.auth0.com/.well-known/jwks.json'
   }),
   audience: 'https://dev-8bqfizw3.us.auth0.com/api/v2/',
-  //issuer: 'https://dev-8bqfizw3.us.auth0.com/',
   algorithms: ['RS256']
 });
 

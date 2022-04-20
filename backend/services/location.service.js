@@ -1,8 +1,8 @@
 const pool = require('../db/database');
 
-const itemService = {
+const locationService = {
     create: async (item) => {
-        let sql = 'INSERT INTO item (name, description) VALUES (?, ?)';
+        let sql = 'INSERT INTO location (name) VALUES (?)';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
             item.description
@@ -11,31 +11,25 @@ const itemService = {
     },
 
     findById: async (id) => {
-        let sql = 'SELECT * FROM item WHERE id = ?';
+        let sql = 'SELECT * FROM location WHERE id = ?';
         const [results, fields] = await pool.promise().execute(sql, [id]);
         return results;
     },
 
     findAll: async () => {
-        let sql = 'SELECT * FROM item';
+        let sql = 'SELECT * FROM location';
         const [results, fields] = await pool.promise().execute(sql);
         return results;
     },
 
     update: async (item) => {
-        let sql = 'UPDATE item SET name = ?, description = ?';
+        let sql = 'UPDATE location SET name = ?';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
             item.description
         ]);
         return results;
     },
-
-    delete: async (id) => {
-        let sql = 'DELETE FROM item WHERE id = ?';
-        const [results, fields] = await pool.promise().execute(sql, [id]);
-        return results;
-    }
 }
 
-module.exports = itemService;
+module.exports = locationService;

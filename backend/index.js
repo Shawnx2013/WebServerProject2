@@ -10,7 +10,6 @@ const { logger, errorLogger } = require('./util/logger');
 const jwtCheck = require('./util/authenticate');
 
 app.use(express.json());
-//app.use(cookieParser());
 
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
@@ -24,9 +23,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/item', routes.itemRoute);
-//app.use('/api/user', routes.userRoute);
-
-// app.use(errorLogger);
+app.use('/api/location', routes.locationRoute);
 
 app.listen(process.env.SERVER_PORT, ()=>{
     console.log(`Server started on port ${process.env.SERVER_HOST}.`);
