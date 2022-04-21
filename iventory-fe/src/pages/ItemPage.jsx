@@ -1,40 +1,32 @@
 import NavTopBar from "../components/NavTopBar";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function ItemPage({ stock, description }) {
+  const location = useLocation();
+  const item = location.state.state;
+
   return (
     <div>
       <div>
-        <NavTopBar name={"Item page"} />
+        <NavTopBar name={item.name} />
       </div>
-      <div>
+      <div className="mt-8 ml-[25%]">
         <div>
           <p className="ml-[5rem]">Avaliable</p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet
-            consectetur adipiscing elit. Nam libero justo laoreet sit amet
-            cursus sit. Libero enim sed faucibus turpis in eu mi. Nulla facilisi
-            cras fermentum odio eu feugiat. Facilisis magna etiam tempor orci
-            eu. In nisl nisi scelerisque eu ultrices vitae auctor eu augue.
-            Platea dictumst vestibulum rhoncus est pellentesque. Lacus
-            suspendisse faucibus interdum posuere lorem ipsum dolor sit.
-            Venenatis lectus magna fringilla urna porttitor rhoncus. Sit amet
-            consectetur adipiscing elit. Aliquam vestibulum morbi blandit cursus
-            risus at ultrices mi. Ut eu sem integer vitae justo eget.
-          </p>
+          <p>{item.description}</p>
         </div>
 
         <button
-          className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4"
+          className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4 text-white mr-4"
           // onClick={() => loginWithRedirect()}
         >
           Edit
         </button>
         <button
-          className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4"
+          className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4 text-white"
           // onClick={() => loginWithRedirect()}
         >
-          View
+          Remove
         </button>
       </div>
     </div>
