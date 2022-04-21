@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Search from "@material-ui/icons/Search";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ItemContext } from "../ItemContext";
 
 function Inventory() {
@@ -15,8 +15,6 @@ function Inventory() {
   const [filterItems, setFilterItems] = useState([]);
   const [searchName, setSearchName] = useState("");
   const [search, setSearch] = useState(false);
-
-  let navigate = useNavigate();
 
   const [userMetadata, setUserMetadata] = useState(null);
   useEffect(() => {
@@ -39,31 +37,37 @@ function Inventory() {
         const { user_metadata } = await metadataResponse.json();
 
         setUserMetadata(user_metadata);
+        console.log(accessToken);
       } catch (e) {
         console.log(e.message);
       }
     };
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub, setToken]);
+    axios({
+      method: "get",
+      url: "http://localhost:8080/api/item",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((result) => {
+      console.log(result);
+      setAllItems(result.data);
+    });
+  }, [user?.sub, setToken, token, getAccessTokenSilently]);
 
-  useEffect(() => {
-    const items = async () => {
-      try {
-        const res = await axios({
-          method: "get",
-          url: "http://localhost:8080/api/item",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAllItems(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    items();
-  }, [allItems, token]);
+  // useEffect(() => {
+  //   console.log(token);
+
+  //   axios({
+  //     method: "get",
+  //     url: "http://localhost:8080/api/item",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   }).then((result) => setAllItems(result.data));
+  // }, []);
 
   function filter(name) {
     setSearch(true);
