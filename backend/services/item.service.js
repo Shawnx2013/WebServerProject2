@@ -2,7 +2,7 @@ const pool = require('../db/database');
 
 const itemService = {
     create: async (item) => {
-        let sql = 'INSERT INTO item (name, description) VALUES (?, ?)';
+        let sql = 'INSERT INTO item (name, description, count, description, location) VALUES (?, ?, ?, ?, ?)';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
             item.description
@@ -23,10 +23,12 @@ const itemService = {
     },
 
     update: async (item) => {
-        let sql = 'UPDATE item SET name = ?, description = ?';
+        let sql = 'UPDATE item SET name = ?, description = ?, count = ?, location = ?';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
-            item.description
+            item.description,
+            item.count,
+            item.location
         ]);
         return results;
     },

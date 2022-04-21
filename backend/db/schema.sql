@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `inventory-db`.`item` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(35) NOT NULL,
   `description` VARCHAR(150) NOT NULL,
+  `count` INT NOT NULL,
   `location` INT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`location`) REFERENCES location(`id`)
