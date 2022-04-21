@@ -17,6 +17,8 @@ function Inventory() {
   const [search, setSearch] = useState(false);
 
   const [userMetadata, setUserMetadata] = useState(null);
+
+  
   
   useEffect(() => {
     async function getToken() {
@@ -70,6 +72,7 @@ function Inventory() {
               onClick={() => {
                 filter(searchName);
               }}
+              className="ml-4"
             >
               <Search />
             </span>
@@ -77,7 +80,7 @@ function Inventory() {
               onClick={() => {
                 setSearch(false);
               }}
-              className="ml-8"
+              className="ml-4 p-2 border-solid border-2 border-indigo rounded-md"
             >
               Reset
             </button>

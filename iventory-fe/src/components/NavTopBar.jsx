@@ -4,6 +4,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 import FilterList from "@material-ui/icons/FilterList";
+import AddIcon from '@material-ui/icons/Add';
+import CloseIcon from '@material-ui/icons/Close';
 
 function NavTopBar({ name }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,41 +14,45 @@ function NavTopBar({ name }) {
   return (
     <div>
       <div
-        className={`h-[35%] w-1/4 bg-slate-100 absolute ${
+        className={`min-h-fit w-1/4 bg-slate-100 absolute drop-shadow-md hover:drop-shadow-xl ${
           isOpen ? "block" : "hidden"
         }`}
       >
-        <button
-          className="ml-4"
-          onClick={() => {
-            setIsOpen(false);
-          }}
-        >
-          {"X"}
-        </button>
+        <div className="p4">
+          <button
+            className="ml-4 mt-4"
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            <CloseIcon />
+          </button>
+        </div>
         <Link to="/inventory">
-          <p className=" text-xl mb-2  p-4 border-b-[1px] border-slate-900">
+          <p className="text-xl p-4 border-b-[1px] border-slate-400">
             <FilterList />
-            Inventory
+            <span className="pl-2">Inventory</span>
           </p>
         </Link>
 
         <Link to="/add">
-          <p className="text-xl mb-2 p-4 border-b-[1px] border-slate-900">
-            + Add Item{" "}
+          <p className="text-xl p-4 border-b-[1px] border-slate-400">
+            <AddIcon /> 
+            <span className="pl-2">Item</span>
           </p>
         </Link>
         <p
           onClick={() => logout({ returnTo: window.location.origin })}
-          className="text-xl mb-2 p-4"
+          className="text-xl p-4 hover: cursor-pointer"
         >
-          <ExitToApp /> logout
+          <ExitToApp /> 
+          <span className="pl-2">Log out</span>
         </p>
       </div>
-      <div className="w-full h-12 bg-black text-white">
+      <div className="p-2 flex flex-row bg-black text-white">
         <div>
           <span
-            className="text-white ml-4 "
+            className="text-white ml-2 hover: cursor-pointer"
             onClick={() => {
               setIsOpen(true);
             }}
