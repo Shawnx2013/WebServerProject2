@@ -3,29 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { Auth0Provider } from "@auth0/auth0-react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Inventory from "./pages/Inventory";
-import AddItem from "./pages/AddItem";
-import ItemPage from "./pages/ItemPage";
 
 ReactDOM.render(
-  <Auth0Provider
-    domain="dev-8bqfizw3.us.auth0.com"
-    clientId="l9SL0ENCIT3VWx5OilNIGIn6GCwhLydU"
-    redirectUri={"http://localhost:3000/inventory"}
-    audience="https://dev-8bqfizw3.us.auth0.com/api/v2/"
-    scope="read:current_user update:current_user_metadata"
-  >
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="inventory" element={<Inventory />} />
-        <Route path="add" element={<AddItem />} />
-        <Route path="item" element={<ItemPage />} />
-      </Routes>
-    </BrowserRouter>
-  </Auth0Provider>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
 
   document.getElementById("root")
 );
