@@ -17,57 +17,44 @@ function Inventory() {
   const [search, setSearch] = useState(false);
 
   const [userMetadata, setUserMetadata] = useState(null);
+  async function getUserMetadata() {
+    const domain = "dev-8bqfizw3.us.auth0.com";
+
+    try {
+      const accessToken = await getAccessTokenSilently();
+      setToken(accessToken);
+
+      const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+
+      const metadataResponse = await fetch(userDetailsByIdUrl, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      const { user_metadata } = await metadataResponse.json();
+      setUserMetadata(user_metadata);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
   useEffect(() => {
-    const getUserMetadata = async () => {
-      const domain = "dev-8bqfizw3.us.auth0.com";
-
-      try {
-        const accessToken = await getAccessTokenSilently();
-
-        setToken(accessToken);
-
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-        const metadataResponse = await fetch(userDetailsByIdUrl, {
+    getUserMetadata().then(function () {
+      if (token != "") {
+        axios({
+          method: "get",
+          url: "http://localhost:8080/api/item",
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
+        }).then((result) => {
+          console.log(result);
+          setAllItems(result.data);
         });
-
-        const { user_metadata } = await metadataResponse.json();
-
-        setUserMetadata(user_metadata);
-        console.log(accessToken);
-      } catch (e) {
-        console.log(e.message);
       }
-    };
-    getUserMetadata();
-    axios({
-      method: "get",
-      url: "http://localhost:8080/api/item",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((result) => {
-      console.log(result);
-      setAllItems(result.data);
     });
   }, [user?.sub, setToken, token, getAccessTokenSilently]);
-
-  // useEffect(() => {
-  //   console.log(token);
-
-  //   axios({
-  //     method: "get",
-  //     url: "http://localhost:8080/api/item",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((result) => setAllItems(result.data));
-  // }, []);
 
   function filter(name) {
     setSearch(true);
@@ -82,7 +69,7 @@ function Inventory() {
       {isAuthenticated && (
         <div>
           <p className="ml-[20%] mt-8 text-2xl font-bold">
-            Welcome, {user.name} !
+            Welcome, {user.nickname} !
           </p>
           <div>
             <input
