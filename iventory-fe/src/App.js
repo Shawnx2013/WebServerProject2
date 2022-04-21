@@ -7,6 +7,7 @@ import Inventory from "./pages/Inventory";
 import AddItem from "./pages/AddItem";
 import ItemPage from "./pages/ItemPage";
 import { useState, useMemo } from "react";
+import EditItem from "./pages/EditItem";
 
 function App() {
   const [token, setToken] = useState("");
@@ -33,6 +34,8 @@ function App() {
             <Route path="inventory" element={<Inventory />} />
             <Route path="add" element={<AddItem />} />
             <Route path="item" element={<ItemPage />} />
+            <Route path="edit" element={<EditItem />} />
+            <Route path="delete" element={<EditItem />} />
           </Routes>
         </BrowserRouter>
       </Auth0Provider>

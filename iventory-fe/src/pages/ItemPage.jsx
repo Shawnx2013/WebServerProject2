@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 function ItemPage({ stock, description }) {
   const location = useLocation();
   const item = location.state.state;
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -18,13 +19,17 @@ function ItemPage({ stock, description }) {
 
         <button
           className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4 text-white mr-4"
-          // onClick={() => loginWithRedirect()}
+          onClick={() => {
+            navigate("/edit", { replace: true, state: item });
+          }}
         >
           Edit
         </button>
         <button
           className=" bg-orange-500 w-1/4 h-10 rounded-md mt-4 text-white"
-          // onClick={() => loginWithRedirect()}
+          onClick={() => {
+            navigate("/edit", { replace: true, state: item });
+          }}
         >
           Remove
         </button>
