@@ -12,6 +12,10 @@ function Inventory() {
     useAuth0();
   const { token, setToken } = useContext(ItemContext);
   const [allItems, setAllItems] = useState([]);
+  const [filterItems, setFilterItems] = useState([]);
+  const [searchName, setSearchName] = useState("");
+  const [search, setSearch] = useState(false);
+
   let navigate = useNavigate();
 
   const [userMetadata, setUserMetadata] = useState(null);
@@ -22,7 +26,6 @@ function Inventory() {
       try {
         const accessToken = await getAccessTokenSilently();
 
-        console.log(accessToken);
         setToken(accessToken);
 
         const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
@@ -41,20 +44,31 @@ function Inventory() {
       }
     };
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently, user?.sub, setToken]);
 
   useEffect(() => {
-    axios({
-      method: "get",
-      url: "http://localhost:8080/api/item",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    }).then(function (allData) {
-      setAllItems(allData.data);
-    });
+    const items = async () => {
+      try {
+        const res = await axios({
+          method: "get",
+          url: "http://localhost:8080/api/item",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAllItems(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    items();
   }, [allItems, token]);
+
+  function filter(name) {
+    setSearch(true);
+    setFilterItems(allItems.filter((elm) => elm.name === name));
+  }
   return (
     <div>
       <div>
@@ -70,20 +84,49 @@ function Inventory() {
             <input
               placeholder="Search"
               className="w-2/4 bg-slate-100 rounded-md mt-20 h-12 ml-[25%] shadow-lg"
+              onChange={(e) => {
+                setSearchName(e.target.value);
+              }}
             />
-            <Search />
+            <span
+              onClick={() => {
+                filter(searchName);
+              }}
+            >
+              <Search />
+            </span>
+            <button
+              onClick={() => {
+                setSearch(false);
+              }}
+              className="ml-8"
+            >
+              Reset
+            </button>
           </div>
           <div className="flex mt-24 justify-evenly flex-wrap">
-            {allItems.map(function (item) {
-              return (
-                <Link to={"/item"} state={{ state: item }}>
-                  <ItemCard
-                    productName={item.name}
-                    description={item.description}
-                  />
-                </Link>
-              );
-            })}
+            {search
+              ? filterItems.map(function (item) {
+                  return (
+                    <Link to={"/item"} state={{ state: item }}>
+                      <ItemCard
+                        productName={item.name}
+                        description={item.description}
+                      />
+                    </Link>
+                  );
+                })
+              : allItems.map(function (item) {
+                  return (
+                    <Link to={"/item"} state={{ state: item }}>
+                      <ItemCard
+                        productName={item.name}
+                        description={item.description}
+                      />
+                    </Link>
+                  );
+                })}
+            {}
           </div>
         </div>
       )}
