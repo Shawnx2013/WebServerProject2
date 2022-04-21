@@ -2,7 +2,7 @@ const pool = require('../db/database');
 
 const itemService = {
     create: async (item) => {
-        let sql = 'INSERT INTO item (name, description) VALUES (?, ?)';
+        let sql = 'INSERT INTO item (name, description, count, description, location) VALUES (?, ?, ?, ?, ?)';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
             item.description
@@ -22,11 +22,22 @@ const itemService = {
         return results;
     },
 
+    search: async (search_str) => {
+        let sql = 'SELECT item.id, item.name, item.description, item.count, item.location' +
+        'FROM items' + 
+        'WHERE CONCAT(name, description) LIKE ? ' +
+        'GROUP BY item.id';
+        const [results, fields] = await pool.promise().execute(sql, ['%'+search_str+'%']);
+        return results;
+    },
+
     update: async (item) => {
-        let sql = 'UPDATE item SET name = ?, description = ?';
+        let sql = 'UPDATE item SET name = ?, description = ?, count = ?, location = ?';
         const [results, fields] = await pool.promise().execute(sql, [
             item.name,
-            item.description
+            item.description,
+            item.count,
+            item.location
         ]);
         return results;
     },
