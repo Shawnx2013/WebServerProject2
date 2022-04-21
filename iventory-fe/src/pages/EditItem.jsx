@@ -68,7 +68,6 @@ function EditItem() {
         <button
           onClick={editItem}
           className=" bg-orange-500 w-1/4 h-10 rounded-md mt-8 ml-[25%] text-white mr-4"
-          // onClick={() => loginWithRedirect()}
         >
           Edit
         </button>

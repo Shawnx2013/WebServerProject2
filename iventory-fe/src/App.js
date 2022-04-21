@@ -35,7 +35,6 @@ function App() {
             <Route path="add" element={<AddItem />} />
             <Route path="item" element={<ItemPage />} />
             <Route path="edit" element={<EditItem />} />
-            <Route path="delete" element={<EditItem />} />
           </Routes>
         </BrowserRouter>
       </Auth0Provider>
