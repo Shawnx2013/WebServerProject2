@@ -22,6 +22,15 @@ const itemService = {
         return results;
     },
 
+    search: async (search_str) => {
+        let sql = 'SELECT item.id, item.name, item.description, item.count, item.location' +
+        'FROM items' + 
+        'WHERE CONCAT(name, description) LIKE ? ' +
+        'GROUP BY item.id';
+        const [results, fields] = await pool.promise().execute(sql, ['%'+search_str+'%']);
+        return results;
+    },
+
     update: async (item) => {
         let sql = 'UPDATE item SET name = ?, description = ?, count = ?, location = ?';
         const [results, fields] = await pool.promise().execute(sql, [

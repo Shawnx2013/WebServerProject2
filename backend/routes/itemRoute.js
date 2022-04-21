@@ -39,6 +39,19 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
+router.get('/search/:key', async (req, res, next) => {
+    try{
+        let search_str = req.params.key;
+        let result = await itemService.search(search_str);
+        return res.status(200).json(result);
+    } catch (e) {
+        console.log(e);
+        res.status(500).send({
+            message: "Error occured while searching for item"
+        })
+    }
+})
+
 router.post('/', async (req, res, next) => {
     try {
         let newItem = req.body;
