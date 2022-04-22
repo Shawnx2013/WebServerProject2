@@ -1,18 +1,23 @@
 import NavTopBar from "../components/NavTopBar";
 import { ItemContext } from "../ItemContext";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function AddItem() {
   const { token } = useContext(ItemContext);
   const [name, setName] = useState("");
   const [location, setLocale] = useState("");
   const [desc, setDesc] = useState("");
+  const [count, setCount] = useState("");
+  const navigate = useNavigate();
 
   function addItem() {
     const payload = {
       name: name,
       description: desc,
-      location: location,
+      count: parseInt(count),
+      location: parseInt(location),
     };
     axios({
       method: "post",
@@ -23,13 +28,15 @@ function AddItem() {
       },
       data: JSON.stringify(payload),
     }).then(function (res) {
-      console.log("this is the res", res);
+      if (res.status === 200) {
+        navigate("/inventory");
+      }
     });
   }
   return (
     <div>
       <div>
-        {console.log(token)} <NavTopBar name={"AddItem"} />
+        <NavTopBar name={"AddItem"} />
       </div>
       <div>
         <input
@@ -47,6 +54,14 @@ function AddItem() {
           value={location}
           onChange={(e) => {
             setLocale(e.target.value);
+          }}
+        />
+        <input
+          className=" w-2/4 bg-slate-100 rounded-md mt-20 h-12 ml-[25%] shadow-lg"
+          placeholder="Count"
+          value={count}
+          onChange={(e) => {
+            setCount(e.target.value);
           }}
         />
         <textarea

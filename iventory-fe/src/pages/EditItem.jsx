@@ -34,9 +34,10 @@ function EditItem() {
     navigate("/inventory", { replace: true });
   }
 
-  return <div>
+  return (
     <div>
-        {console.log(token)} <NavTopBar name={"Edit " + item.name} />
+      <div>
+        <NavTopBar name={"Edit " + item.name} />
       </div>
       <div>
         <input
@@ -72,7 +73,8 @@ function EditItem() {
           Edit
         </button>
       </div>
-  </div>;
+    </div>
+  );
 }
 
 export default EditItem;
