@@ -80,7 +80,7 @@ function Inventory() {
               onClick={() => {
                 setSearch(false);
               }}
-              className="ml-4 p-2 border-solid border-2 border-indigo rounded-md"
+              className="ml-4 p-2 border-solid border-2 border-indigo rounded-md drop-shadow-xl hover:drop-shadow-md"
             >
               Reset
             </button>

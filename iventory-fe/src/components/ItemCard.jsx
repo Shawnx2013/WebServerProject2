@@ -7,7 +7,7 @@ function ItemCard({ productName, stock, description, onTap }) {
       <div className="mt-2">{stock}</div>
       <div className="mt-2">{description}</div>
       <button
-        className=" bg-orange-500 w-2/4 h-10 rounded-md mt-4 text-white"
+        className=" bg-orange-500 w-2/4 h-10 rounded-md mt-4 text-white hover:bg-orange-500/75"
         onClick={onTap}
       >
         View
