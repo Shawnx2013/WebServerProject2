@@ -11,13 +11,17 @@ function EditItem() {
   const navigate = useNavigate();
   const [name, setName] = useState(item.name);
   const [locate, setLocale] = useState(item.location);
+  const [count, setCount] = useState(item.count);
   const [desc, setDesc] = useState(item.description);
+  const [id] = useState(item.id);
 
   function editItem() {
     const payload = {
       name: name,
       description: desc,
-      location: locate,
+      count: parseInt(count),
+      location: parseInt(locate),
+      id: id,
     };
     axios({
       method: "put",
@@ -55,6 +59,14 @@ function EditItem() {
           value={locate}
           onChange={(e) => {
             setLocale(e.target.value);
+          }}
+        />
+        <input
+          className=" w-2/4 bg-slate-100 rounded-md mt-20 h-12 ml-[25%] shadow-lg"
+          placeholder="Count"
+          value={count}
+          onChange={(e) => {
+            setCount(e.target.value);
           }}
         />
         <textarea

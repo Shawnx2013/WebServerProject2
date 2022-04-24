@@ -36,10 +36,10 @@ const itemService = {
 
   update: async (item) => {
     let sql =
-      "UPDATE item SET name = ?, description = ?, count = ?, location = ?";
+      "UPDATE item SET name = ?, description = ?, count = ?, location = ? WHERE id = ?";
     const [results, fields] = await pool
       .promise()
-      .execute(sql, [item.name, item.description, item.count, item.location]);
+      .execute(sql, [item.name, item.description, item.count, item.location, item.id]);
     return results;
   },
 
