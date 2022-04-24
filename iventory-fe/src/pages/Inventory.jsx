@@ -31,6 +31,9 @@ function Inventory() {
     }
     getToken().then(function(accessToken) {
       setToken(accessToken);
+      const payload = {
+        user: user.nickname,
+      };
       axios({
         method: "get",
         url: "http://localhost:8080/api/item",
@@ -38,6 +41,7 @@ function Inventory() {
           "Content-Type": "application/json",
           Authorization: "Bearer " + accessToken,
         },
+        data: JSON.stringify(payload),
       }).then((result) => {
         //console.log(result);
         setAllItems(result.data);

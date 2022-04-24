@@ -17,7 +17,6 @@ function AddItem() {
   
 
   function addItem() {
-    console.log(user.nickname);
     const payload = {
       user: user.nickname,
       name: name,
