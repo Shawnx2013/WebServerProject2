@@ -3,8 +3,11 @@ import { useState, useContext } from "react";
 import NavTopBar from "../components/NavTopBar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function EditItem() {
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
   const { token } = useContext(ItemContext);
   const location = useLocation();
   const item = location.state;
@@ -17,6 +20,7 @@ function EditItem() {
 
   function editItem() {
     const payload = {
+      user: user.nickname,
       name: name,
       description: desc,
       count: parseInt(count),

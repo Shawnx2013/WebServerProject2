@@ -2,12 +2,18 @@ import { ItemContext } from "../ItemContext";
 import { useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function RemoveModal({ name, id }) {
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
   const { token } = useContext(ItemContext);
   const navigate = useNavigate();
 
   function deleteItem() {
+    const payload = {
+      user: user.nickname
+    };
     axios({
       method: "delete",
       url: "http://localhost:8080/api/item/" + id,
@@ -15,7 +21,7 @@ function RemoveModal({ name, id }) {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      data: JSON.stringify({}),
+      data: JSON.stringify(payload),
     }).then(function (res) {
       console.log("this is the res", res);
     });

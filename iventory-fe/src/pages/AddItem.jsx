@@ -3,17 +3,23 @@ import { ItemContext } from "../ItemContext";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function AddItem() {
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+    useAuth0();
   const { token } = useContext(ItemContext);
   const [name, setName] = useState("");
   const [location, setLocale] = useState("");
   const [desc, setDesc] = useState("");
   const [count, setCount] = useState("");
   const navigate = useNavigate();
+  
 
   function addItem() {
+    console.log(user.nickname);
     const payload = {
+      user: user.nickname,
       name: name,
       description: desc,
       count: parseInt(count),
