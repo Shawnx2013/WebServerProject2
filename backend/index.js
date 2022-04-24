@@ -6,7 +6,7 @@ const cors = require('cors');
 const app = express();
 
 const routes = require('./routes');
-const { logger, errorLogger } = require('./util/logger');
+const { logger} = require('./util/logger');
 const jwtCheck = require('./util/authenticate');
 
 app.use(express.json());

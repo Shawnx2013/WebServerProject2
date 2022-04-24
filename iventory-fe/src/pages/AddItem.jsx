@@ -18,7 +18,6 @@ function AddItem() {
 
   function addItem() {
     const payload = {
-      user: user.nickname,
       name: name,
       description: desc,
       count: parseInt(count),
@@ -30,6 +29,7 @@ function AddItem() {
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
+        username: user.nickname
       },
       data: JSON.stringify(payload),
     }).then(function (res) {

@@ -11,17 +11,14 @@ function RemoveModal({ name, id }) {
   const navigate = useNavigate();
 
   function deleteItem() {
-    const payload = {
-      user: user.nickname
-    };
     axios({
       method: "delete",
       url: "http://localhost:8080/api/item/" + id,
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
+        username: user.nickname
       },
-      data: JSON.stringify(payload),
     }).then(function (res) {
       console.log("this is the res", res);
     });
