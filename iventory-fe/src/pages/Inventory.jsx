@@ -16,34 +16,34 @@ function Inventory() {
   const [searchName, setSearchName] = useState("");
   const [search, setSearch] = useState(false);
 
-  const [userMetadata, setUserMetadata] = useState(null);
-
-  
-  
   useEffect(() => {
     async function getToken() {
       try {
         const accessToken = await getAccessTokenSilently();
-        return accessToken
+        return accessToken;
       } catch (e) {
         console.log(e.message);
       }
     }
-    getToken().then(function(accessToken) {
-      setToken(accessToken);
-      axios({
+    if(user){
+      getToken().then(function(accessToken) {
+        console.log(user);
+        setToken(accessToken);
+        axios({
         method: "get",
         url: "http://localhost:8080/api/item",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + accessToken,
+          "username": user.nickname
         },
-      }).then((result) => {
-        //console.log(result);
-        setAllItems(result.data);
+        }).then((result) => {
+          //console.log(result);
+          setAllItems(result.data);
+        });
       });
-    });
-  }, [setToken, getAccessTokenSilently]);
+    }
+  }, [setToken, getAccessTokenSilently, user]);
 
   function filter(name) {
     setSearch(true);
