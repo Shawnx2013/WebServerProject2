@@ -1,11 +1,11 @@
 import { ItemContext } from "../ItemContext";
 import { useContext } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function RemoveModal({ name, id }) {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+  const { user } =
     useAuth0();
   const { token } = useContext(ItemContext);
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function RemoveModal({ name, id }) {
         username: user.nickname
       },
     }).then(function (res) {
-      console.log("this is the res", res);
+      console.log(res);
     });
 
     navigate("/inventory", { replace: true });

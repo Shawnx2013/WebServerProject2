@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { ItemContext } from "../ItemContext";
 
 function Inventory() {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
+  const { user, isAuthenticated, getAccessTokenSilently } =
     useAuth0();
-  const { token, setToken } = useContext(ItemContext);
+  const { setToken } = useContext(ItemContext);
   const [allItems, setAllItems] = useState([]);
   const [filterItems, setFilterItems] = useState([]);
   const [searchName, setSearchName] = useState("");
@@ -27,7 +27,6 @@ function Inventory() {
     }
     if(user){
       getToken().then(function(accessToken) {
-        console.log(user);
         setToken(accessToken);
         axios({
         method: "get",

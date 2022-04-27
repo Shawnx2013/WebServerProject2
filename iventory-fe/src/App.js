@@ -1,5 +1,4 @@
 import Login from "./pages/Login";
-import logo from "./logo.svg";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ItemContext } from "./ItemContext";

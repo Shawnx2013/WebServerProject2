@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function AddItem() {
-  const { user, isAuthenticated, isLoading, getAccessTokenSilently } =
-    useAuth0();
+  const { user } = useAuth0();
   const { token } = useContext(ItemContext);
   const [name, setName] = useState("");
   const [location, setLocale] = useState("");

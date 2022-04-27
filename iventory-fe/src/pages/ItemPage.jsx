@@ -1,17 +1,37 @@
 import NavTopBar from "../components/NavTopBar";
 import RemoveModal from "../components/RemoveModal";
-import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
+import { ItemContext } from "../ItemContext";
 
-function ItemPage({ stock, description }) {
+function ItemPage() {
   const location = useLocation();
   const item = location.state.state;
   const navigate = useNavigate();
   const [isRemove, setRemove] = useState(false);
+  const { token } = useContext(ItemContext);
+  const { user } = useAuth0();
 
-  function remove() {
-    setRemove(true);
+  const [itemlocation, updateitemloation]= useState("");
+  function getLocation(){
+    axios({
+      method: "get",
+      url: "http://localhost:8080/api/location/" + item.location,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+        username: user.nickname
+      },
+    }).then((res) =>{
+      updateitemloation(res.data.name);
+    })
   }
+
+  useEffect(() => {
+    getLocation();
+  })
 
   return (
     <div>
@@ -27,10 +47,9 @@ function ItemPage({ stock, description }) {
             className="w-3/4 pt-4 bg-slate-100 rounded-md mt-20 h-[10rem]  shadow-lg"
             defaultValue={item.description}
           >
-            {/* {JSON.stringify(item.description)} */}
           </textarea>
         </div>
-        <p className="mt-4 text-xl">Location: Shelf {item.location}</p>
+        <p className="mt-4 text-xl">Location: {itemlocation}</p>
         <button
           className=" bg-orange-500 w-1/4 h-10 rounded-md mt-8 text-white mr-4"
           onClick={() => {

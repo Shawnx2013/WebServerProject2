@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 function ItemCard({ productName, stock, description, onTap }) {
   return (
     <div className="bg-slate-100 text-black w-[25rem] h-[12.25rem] p-4 rounded-md shadow-lg mt-4 mb-4 ">
