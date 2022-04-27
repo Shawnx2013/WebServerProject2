@@ -16,19 +16,23 @@ function ItemPage() {
 
   const [itemlocation, updateitemloation] = useState("");
   async function getLocation() {
-    // if (isAuthenticated) {
     const accessToken = await getAccessTokenSilently();
+    if (isAuthenticated) {
+      axios({
+        method: "get",
+        url: "http://localhost:8080/api/location/" + item.location,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+          username: user.nickname,
+        },
+      }).then((res) => {
+        console.log(res);
+        updateitemloation(res.data.name);
+      });
+    }
 
-    axios({
-      method: "get",
-      url: "http://localhost:8080/api/location/" + item.location,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accessToken,
-      },
-    }).then((res) => {
-      updateitemloation(res.data.name);
-    });
+    console.log(token);
   }
 
   useEffect(() => {
