@@ -12,26 +12,28 @@ function ItemPage() {
   const navigate = useNavigate();
   const [isRemove, setRemove] = useState(false);
   const { token } = useContext(ItemContext);
-  const { user } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  const [itemlocation, updateitemloation]= useState("");
-  function getLocation(){
+  const [itemlocation, updateitemloation] = useState("");
+  async function getLocation() {
+    // if (isAuthenticated) {
+    const accessToken = await getAccessTokenSilently();
+
     axios({
       method: "get",
       url: "http://localhost:8080/api/location/" + item.location,
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-        username: user.nickname
+        Authorization: "Bearer " + accessToken,
       },
-    }).then((res) =>{
+    }).then((res) => {
       updateitemloation(res.data.name);
-    })
+    });
   }
 
   useEffect(() => {
     getLocation();
-  })
+  });
 
   return (
     <div>
@@ -46,8 +48,7 @@ function ItemPage() {
           <textarea
             className="w-3/4 pt-4 bg-slate-100 rounded-md mt-20 h-[10rem]  shadow-lg"
             defaultValue={item.description}
-          >
-          </textarea>
+          ></textarea>
         </div>
         <p className="mt-4 text-xl">Location: {itemlocation}</p>
         <button
